@@ -82,7 +82,7 @@ def count(data, nstates):
     return cidx
 
 
-##�����ļ��������ݽ�����������
+
 def Sort(names):
     new_names = []
     dead_list = []

@@ -73,7 +73,7 @@ def deep_rule(s, deep):
 
 def learnBayesNet_Option(data, nstates, U, time_step, strategy_num, pro, result=None):
     """
-    获取两个或多个strategy组合的BDscore,并根据BDscore筛选连线，构造图结构
+   Obtain the BDscore of two or more strategy combinations, filter connections based on the BDscore, and construct a graph structure
     :param data: 
     :param nstates: 
     :param U: 
@@ -83,7 +83,7 @@ def learnBayesNet_Option(data, nstates, U, time_step, strategy_num, pro, result=
     :param result: 
     :return: 
     """
-    # 参数准备
+
     if strategy_num == 5:
         strategy_dict = {
             0: "G", 1: "L", 2: "e", 3: "A", 4: "E"
@@ -98,14 +98,14 @@ def learnBayesNet_Option(data, nstates, U, time_step, strategy_num, pro, result=
     var_num = data.shape[0]
     strategies = list(range(strategy_num))
 
-    # 输出参数
+
     bestparents = [[] for i in range(var_num)]
     scores = {}
     bestParams = {}
     ratios = {}
 
     for v in strategies:
-        # v = strategies[vind]
+
         if time_step == 1:
             for c in strategies:
                 if c == v:
@@ -272,78 +272,6 @@ def learnBayesNet_noparallelize(data, nstates, maxNparents, casual_num=9, effect
         Alearn[bestparents[i], i] = 1
     return Alearn, bestparameters, bestparents, bestscores
 
-
-# def learnBayesNetBlock(data, nstates, maxparents, block, blockMessage, casual_num=3, effect_num=7, alpha=20):
-#     var_num = data.shape[0]
-#     bestparents = [[] for i in range(var_num)]
-#     bestparameters = [[] for i in range(var_num)]
-#     bestscores = [[] for i in range(var_num)]
-#     var_casual = list(range(casual_num))
-#     var_effect = list(range(var_num - effect_num, var_num))
-#     for vind in range(len(var_effect)):
-# 
-#         v = var_effect[vind]
-#         U = alpha / np.prod(nstates[v])
-#         bestscore, Up = BDscore(data[v, :], [], nstates[v], [], U)
-#         bestscore = 0
-#         parentsets = []
-#         for i in list(range(1, maxparents[v] + 1)):
-#             parentset = list(combinations(var_casual, i))
-#             parentset = [list(o) for o in parentset]
-#             parentsets.append(parentset)
-#         new_parentsets = []
-#         for p in parentsets:
-#             new_parentsets += p
-#         Parents = []
-#         Scores = []
-#         Parameters = []
-#         for pa in new_parentsets:
-#             if pa == [0]:
-#                 condition = [1]
-#             elif pa == [1]:
-#                 condition = [0, 2]
-#             elif pa == [2]:
-#                 condition = [1]
-#             elif pa == [0, 1]:
-#                 condition = [2]
-#             elif pa == [0, 2]:
-#                 condition = [1]
-#             elif pa == [1, 2]:
-#                 condition = [0]
-#             elif pa == [0, 1, 2]:
-#                 condition = []
-# 
-#             condition = [blockMessage[c] for c in condition]
-#             condition = sum(condition, [])
-#             U1 = alpha / (np.prod(nstates[v]) * np.prod(nstates[condition]))
-#             bd1, Up1 = BDscore(data[v, :], data[condition, :], nstates[v], nstates[condition], U1)
-# 
-#             Pa = [blockMessage[p] for p in pa]
-#             Pa = sum(Pa, [])
-# 
-#             U2 = alpha / (np.prod(nstates[v]) * np.prod(nstates[Pa]))
-#             bd2, Up2 = BDscore(data[v, :], data[Pa, :], nstates[v], nstates[Pa], U2)
-#             Parents.append(pa)
-#             Scores.append(bd2 - bd1)
-#             Parameters.append(Up2)
-#         Scores = np.array(Scores)
-#         index = np.where(Scores == np.max(Scores))[0][0]
-#         if Scores[index] < bestscore:
-#             bestparents[v] = []
-#             bestscores[v] = bestscore
-#             bestparameters[v] = Up
-#         else:
-#             bestparents[v] = Parents[index]
-#             bestscores[v] = bestscore / Scores[index]
-#             bestparameters[v] = Parameters[index]
-#     Alearn = np.zeros((casual_num + effect_num, casual_num + effect_num))
-#     for i in var_effect:
-#         Alearn[bestparents[i], i] = 1
-#     return Alearn, bestparameters, bestparents, bestscores
-
-
-def getCondition(G, nodes):
-    pass
 
 
 

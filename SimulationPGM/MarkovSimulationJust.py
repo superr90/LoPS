@@ -217,10 +217,10 @@ def get_joint_probs(optential, n):
     # joint_probs = joint_probs / joint_probs.sum()
     #
     # G = getJointDistrubution_(joint_probs=joint_probs, threshold=1e-5)
-    # 创建一个空的联合概率分布数组，初始值为1
+    # Create an empty joint probability distribution array with an initial value of 1
     joint_prob = np.ones((2,) * n)
 
-    # 对于每个节点的势函数，将其与联合概率分布相乘
+    # For each node's potential function, multiply it by the joint probability distribution
     for node_ids, node_cpd in potential.items():
         joint_prob *= node_cpd
 
@@ -230,7 +230,7 @@ def get_joint_probs(optential, n):
 def gibbs_sampling(num_samples, graph):
     adj_matrix = graph[0]
     joint_probs = graph[1]
-    # 判断是否独立
+    # Determine whether it is independent
     names = []
     pros = []
     for i in range(2):

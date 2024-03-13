@@ -56,7 +56,7 @@ def find_separator(adj_matrix, u, v):
 
     all_combinations = []
     for r in range(0, len(leave_nodes) + 1):
-        # 生成长度为 r 的所有组合
+        # Generate all combinations of length r
         combinations_r = combinations(leave_nodes, r)
         all_combinations.extend(combinations_r)
 
@@ -119,7 +119,7 @@ def generate_potential(G):
 
 
 def get_px_c(pxc, x, c):
-    # 获得p(x|c)
+    # get p(x|c)
     px_c = np.zeros((2, 2))
     for i in range(2):
         if x < c:
@@ -137,7 +137,7 @@ def get_px_c(pxc, x, c):
 def get_px_c_py_c(px_c, py_c, x, y, c):
     seq = [x, y, c]
 
-    # k为控制条件
+    # k is the control condition
     p_indep = np.zeros((2, 2, 2))
     for i in range(2):
         for j in range(2):
@@ -188,7 +188,7 @@ def global_markov_property(joint_probs, G):
         if saparator is None:
             continue
         if saparator == []:
-            # 如果s,t不联通,需要满足p(s)p(t)==p(s,t)
+            # If s and t are not connected, it needs to satisfy p(s)p(t)==p(s,t)
             axis_s = list(range(len(G)))
             axis_s.remove(s)
             ps = np.sum(joint_probs, axis=tuple(axis_s))

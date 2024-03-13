@@ -16,7 +16,7 @@ networks = generate_all_Markov_network(node_number)
 plt.rcParams['font.family'] = 'CMU Serif'
 
 
-# 马尔可夫网络抽样
+# Markov network sampling
 def generate_simulation_data_par(num_sample, m):
     print(num_sample)
     edge_potentials = []

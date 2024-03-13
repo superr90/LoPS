@@ -78,7 +78,7 @@ def generate_dict_cpd(child, parents):
 
 def getCondition(G):
     """
-    根据图结构，判断每个节点为父节点时候，需要condtion的节点
+    According to the graph structure, when judging each node as a parent node, a condtion node is required.
     :return:
     """
     condition = []

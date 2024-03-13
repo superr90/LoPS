@@ -66,7 +66,7 @@ def generate_dict_cpd(child, parents):
 
 def getCondition(G):
     """
-    根据图结构，判断每个节点为父节点时候，需要condtion的节点
+    According to the graph structure, when judging each node as a parent node, a condtion node is required.
     :return:
     """
     condition = []
@@ -181,8 +181,8 @@ def isIndepent(node, upstream_joint_prob, pro_table, graph, upstream_graph):
 
         kl = kl_divergence(px0.reshape(-1), p_index.reshape(-1))
 
-        # 如有边则需要满足条件相关
-        # 若没有边则需要满足条件不相关
+        # If there is an edge, it needs to satisfy it is  related.
+        # If there is no edge, the condition needs to be satisfied and it is unrelated.
 
         uneighbor = np.where(upstream_graph[:, n] != 0)[0]
         if len(uneighbor) == 0:
@@ -292,16 +292,6 @@ def Main(m=2000):
             bayesianGraph[i].append(belief_network[index])
             bayesianGraphJoint[i].append(d)
 
-    # bayesianGraphs = np.random.randint(0, len(belief_network), size=len(MarKovGraphs))
-    # bayesianGraphs = [belief_network[i] for i in bayesianGraphs]
-    # graphs = [(MarKovGraphs[i], joint_probs[i], bayesianGraphs[i]) for i in range(len(MarKovGraphs))]
-    #
-    # data = []
-    # for i in range(len(graphs)):
-    #     d = generateRandomGraph(graphs[i])
-    #     data.append(d)
-    # with multiprocessing.Pool(processes=12) as pool:
-    #     data = pool.map(partial(generateRandomGraph), graphs)
 
     result = {
         "MarKovGraphs": MarKovGraphs,

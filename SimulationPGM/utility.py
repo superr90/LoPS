@@ -98,7 +98,7 @@ def generate_all_belief_network(upstream_n, down_stream_n):
     return graphs
 
 
-# 马尔可夫网络抽样
+# Markov network sampling
 def effective_sample_size(chain):
     """
     Calculate the effective sample size of a chain.
@@ -150,10 +150,10 @@ def construct_MarkovNetwork(adj_matrix):
     edge_potentials = {}
     for k, component in enumerate(components):
         models.append(MarkovNetwork())
-        # 加点
+        # add node
         for i in component:
             models[k].add_node(i)
-        # 加边与potential
+        # add edge and potential
         for i in component:
             for j in component:
                 if j > i and adj_matrix[i][j] == 1:
@@ -169,7 +169,7 @@ def construct_MarkovNetwork(adj_matrix):
                     models[k].add_edge(u=i, v=j)
                     models[k].add_factors(factor)
                     edge_potentials.update({(i, j): potential})
-        # 如果是孤立点则单独加potential
+        # If it is an isolated node, add potential separately.
         if len(component) == 1:
             p = np.random.uniform(0, 1)
             if p <= 0.5:
@@ -183,7 +183,7 @@ def construct_MarkovNetwork(adj_matrix):
             models[k].add_factors(factor)
         bp = BeliefPropagation(models[k])
         bps.append(bp)
-    # 节点所在component
+    # The component where the node is located
     node_components = {}
     for k, component in enumerate(components):
         for c in component:
@@ -193,7 +193,7 @@ def construct_MarkovNetwork(adj_matrix):
 
 def gibbs_sampling(num_samples, adj_matrix):
     components, node_components, models, bps, edge_potentials = construct_MarkovNetwork(adj_matrix)
-    # 初始化节点值
+    # Initialize node values
     burn_in = 2000
     sampleData = np.zeros((len(adj_matrix), num_samples + burn_in))
     for i, model in enumerate(models):

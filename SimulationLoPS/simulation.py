@@ -657,7 +657,7 @@ class Chunk:
 
                     if U[1, 1] / len(seq) < P[i] * P[j] or U[1, 1] / len(seq) < 0.05:
                         continue
-                    # 子节点没有父节点时候的
+
                     ratio = score2 / score1
                     ratios.append(ratio)
                     chunks.append(cl + cr)

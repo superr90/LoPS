@@ -443,7 +443,7 @@ def generate_planned_accidental(df_total):
     print("pre_index")
 
     # ====================
-    #      优化后代码
+    #
     planned_traj_index = (
         pd.Series(energizer_lists).explode().rename("sec_level_1").reset_index()
             .merge(df_total.labels.reset_index(), left_on="sec_level_1", right_on="index")
@@ -465,31 +465,7 @@ def generate_planned_accidental(df_total):
     accidental_lists = [np.arange(pre_index[energizer_lists[i][0]], energizer_lists[i][0]) for i in accidental_traj_index]
     # ====================
 
-    # ====================
-    #       原代码
-    # cnt = 0
-    # planned_lists = []
-    # for i in energizer_lists:
-    #     try:
-    #         if (df_total.iloc[i[:10]].labels == "approach").mean() > 0.8 and len(i) > 0:
-    #             planned_lists.append(np.arange(pre_index[i[0]], i[0]))
-    #     except:
-    #         cnt += 1
-    #         continue
-    # print("Planned except count : ", cnt)
-    # cnt = 0
-    # accidental_lists = []
-    # for i in energizer_lists:
-    #     try:
-    #         if (df_total.loc[i[:10]].labels == "approach").mean() <= 0.2 \
-    #                 and (df_total.loc[i[:10]].labels == "local").mean() > 0.5 \
-    #                 and len(i) > 0:
-    #         # if (df_total.loc[i[:10], "contribution"].values[:, 4] > 0.0).sum() == 0 and len(i) > 0:
-    #             accidental_lists.append(np.arange(pre_index[i[0]], i[0]))
-    #     except:
-    #         cnt += 1
-    #         continue
-    # print("Accident except count : ", cnt)
+
     # ====================
     #
     planned_all = []
@@ -571,7 +547,7 @@ def generate_suicide_normal_next(df_total, suicide):
         )
     print("Finsihed labelling.")
 
-    """把suicide_trial中的index展开"""
+    """Expand the index in suicide_trial"""
     temp = (
         suicide_trial.apply(pd.Series, index=["file", "indexes", "list_status"])
         .drop("file", 1)
@@ -581,12 +557,12 @@ def generate_suicide_normal_next(df_total, suicide):
         .rename(columns={"index": "group_id"})
     )
 
-    """把每个index对应的label贴上去"""
+    """Paste the label corresponding to each index"""
     temp = temp.merge(
         df_total[["labels", "contribution"]].reset_index(), left_on="indexes", right_on="index", how="left"
     ).drop("index", 1)
 
-    """为了区分normal里面的list"""
+    """In order to distinguish the list in normal"""
     if suicide == "contribution":
         second_label = (
             temp.assign(
@@ -620,7 +596,7 @@ def generate_suicide_normal_next(df_total, suicide):
                 else "others"
             )
         )
-    """分类三种list"""
+    """Classified into three lists"""
     lists = (
         temp.merge(
             second_label.rename("label2").reset_index(), how="left", on="group_id"
@@ -629,7 +605,7 @@ def generate_suicide_normal_next(df_total, suicide):
         .apply(lambda x: list(x["indexes"]))
         .reset_index()
     )
-    """三种list分开"""
+    """Three kinds of lists are separated"""
     suicide_lists = list(lists[lists.list_status == "suicide"][0].values)
     normal_lists = list(
         lists[(lists.list_status != "suicide") & (lists.label2 == "normal")][0].values

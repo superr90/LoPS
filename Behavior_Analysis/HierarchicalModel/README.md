@@ -1,4 +1,4 @@
-# Q值计算
+# Agent and Value computation
 
 * [Individual Strategy](./Agent): basis strategy
 

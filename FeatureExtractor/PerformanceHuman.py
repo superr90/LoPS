@@ -199,7 +199,7 @@ def reward(filePath):
         eatGhostNum.append(numberEatGhost1 + numberEatGhost2)
         eatGhostRward = (numberEatGhost1 + numberEatGhost2) * ghostReward
 
-        gameReward = energizersReward + eatGhostRward - deadPenalty
+        gameReward = energizersReward + eatGhostRward - deadPenalty  # +beansReward
         # gameReward = eatGhostRward - deadPenalty
         rewardPerGame.append(gameReward)
         tilePerGame.append(len(grp))

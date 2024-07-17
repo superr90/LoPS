@@ -1,3 +1,25 @@
+data = {
+    "time": {"vbl": [], "flip": [], "miss": [], "fps": [], "cost": [], "JSCheckCost": [], "datasavingCost": [],
+             "rewardCost": [], "drawCost": [], "flipCost": [], "ghostUpCost": [], "pacManUpCost": [], "ifi": float},
+    "gameMap": {"currentTiles": [], "totalDots": [], "version": 'GenerateRandomMap_V13([0 0 1 1 1 1 1 1])'},
+    "pacMan": {"frames": [], "tile_x": [], "tile_y": [], "pixel_x": [], "pixel_y": [], "dir_x": [], "dir_y": [],
+               "dirEnum": [], "nextDirEnum": [], "distToMid_x": [], "distToMid_y": [], },
+    "ghosts": {"tile_x": [], "tile_y": [], "pixel_x": [], "pixel_y": [], "dir_x": [], "dir_y": [], "dirEnum": [],
+               "distToMid_x": [],
+               "distToMid_y": [], "targetTile_x": [], "targetTile_y": [], "cornerTile_x": [], "cornerTile_y": [],
+               "frames": [],
+               "mode": [], "targeting": [], "scared": [], "sigReverse": [], "sigLeaveHome": [],
+               "faceDirEnum": [], },
+    "energizer": {"pointsDuration": [], "duration": [], "flashes": [], "flashInterval": [], "count": [],
+                  "active": [], "points": [], "pointsFramesLeft": [], },
+    "direction": {"up": [], "down": [], "left": [], "right": [], "bug": [], },
+    "Voltage": {"up": [], "down": [], "left": [], "right": [], },
+    "rewd": {"reward": [], "rewardWin": [], "rewardX": [], "magdot": [], "magghoast": [], "mageneg": [], },
+}
+num = 0
+for key in data.keys():
+    num += len(list(data[key].keys()))
+
 import pandas as pd
 import numpy as np
 from BasicStrategy.DataPreProcessHuman import human_data_preprocess
@@ -30,7 +52,7 @@ from GrammarInduction.GrammarProcess import DividePerson, GrammarAlign
 from FeatureExtractor.PerformanceHuman import reaction_time_human, reward_human
 from FeatureExtractor.PerformanceMonkey import reaction_time_monkey, reward_monkey
 from DrawImg.generate_data.GenerateData import *
-from DrawImg.generate_data.Fig6 import *
+from DrawImg.generate_data.grammarTransition import *
 
 from DrawImg.plot_code.plot_main import *
 
@@ -101,12 +123,16 @@ def generate_img_data():
     Fig3b()
     Fig4a2_4b2()
     Fig4a3_4b3()
-    Fig4c2()
-    Fig4c3()
 
-    # Fig6
-    static()
+    Fig5a()
+    Fig5b()
+
+    subj_types = ["expert", "novice", "monkey"]
+    for subj in subj_types:
+        generate_transition_data_human(subj)
+    transition_filter(0.7, False)
     toCsvMain()
+
 
 
 def draw_img():
@@ -116,12 +142,24 @@ def draw_img():
     plot_3b()
     plot_4a2_4b2()
     plot_4a3_4b3()
-    plot_4c2()
-    plot_4c3()
-    plot_5()
+
+    plot_5a()
+    plot_5b()
+
     plot_6()
+    plot_7()
+    plot_sup1()
+    plot_sup3a()
+    plot_sup3b()
+    plot_s2()
+
+    grammar_contribute_performance()
+    static_RD_GD()
+    static_LROfS_CNT()
+
 
 if __name__ == '__main__':
+
     generate_data()
     generate_img_data()
     draw_img()

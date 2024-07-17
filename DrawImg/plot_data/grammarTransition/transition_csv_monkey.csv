@@ -1,0 +1,5 @@
+source,target,value,label,color,feature
+03(1),06(0),1,$e$,#FFD58F,"IS1,IS2,PG1,PG2,PE,BN5,state"
+08(1),19(0),1,$h_p$,#D8BFD8,"IS1,IS2,PG1,PG2,PE,BN5,state"
+09(1),10(0),1,$p_u$,#C0FFC0,"IS1,IS2,PG1,PG2,PE,BN5,state"
+19(1),10(0),1,$p_b$,#0edb0e,"IS1,IS2,PG1,PG2,PE,BN5,state"

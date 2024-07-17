@@ -1,0 +1,9 @@
+source,target,value,label,color,feature
+04(1),16(0),1,$g_b$,#0000CD,"IS1,IS2,PG1,PG2,PE,BN5,state"
+08(1),13(0),1,$g_u$,#ADD8E6,"IS1,IS2,PG1,PG2,PE,BN5,state"
+09(1),08(0),1,$p_b$,#0edb0e,"IS1,IS2,PG1,PG2,PE,BN5,state"
+11(1),08(0),1,$p_u$,#C0FFC0,"IS1,IS2,PG1,PG2,PE,BN5,state"
+11(1),13(0),1,$g_u$,#ADD8E6,"IS1,IS2,PG1,PG2,PE,BN5,state"
+12(1),08(0),1,$p_b$,#0edb0e,"IS1,IS2,PG1,PG2,PE,BN5,state"
+13(1),08(0),1,$p_b$,#0edb0e,"IS1,IS2,PG1,PG2,PE,BN5,state"
+13(1),11(0),1,$p_b$,#0edb0e,"IS1,IS2,PG1,PG2,PE,BN5,state"

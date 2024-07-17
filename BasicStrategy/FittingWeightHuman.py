@@ -1282,9 +1282,11 @@ def get_human_weight(date):
     fileNames = os.listdir(fileFolder)
     filePaths = [fileFolder + f for f in fileNames]
 
-    with multiprocessing.Pool(processes=20) as pool:
-        pool.map(
-            partial(FittingWeight, saveFolder=saveFolder), filePaths)
+    for i in range(len(filePaths)):
+        FittingWeight(filePaths[i], saveFolder=saveFolder)
+    # with multiprocessing.Pool(processes=20) as pool:
+    #     pool.map(
+    #         partial(FittingWeight, saveFolder=saveFolder), filePaths)
 
 
 if __name__ == '__main__':
